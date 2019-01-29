@@ -51,3 +51,32 @@ Ball.protytype.update = function() {
 
 }
 
+var balls = [];
+
+function loop() {
+	ctx.fillstyle = 'rgba(0,0,0,0.25)';
+	ctx.fillRect(0,0, width, height);
+
+	while (balls.length < 25) {
+		var size = random(10,20);
+		var ball = new Ball(
+			// ball position always drawn at least one ball width
+			// away from the edge of the canvas, to avoid drawing errors
+			random(0 + size, width - size),
+			random(0 + size, height - size),
+			random(-7,7),
+			random(-7,7),
+			'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')',
+			size
+		);
+		balls.push(ball);
+	}
+
+	for (var i = 0; i < balls.length; i++) {
+		balls[i].draw();
+		balls[i].update();
+	}
+
+	requestAnimationFrame(loop);
+}
+
